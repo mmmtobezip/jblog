@@ -19,6 +19,7 @@ import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.FileUploadService;
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
+import com.poscodx.jblog.vo.PostVo;
 import com.poscodx.jblog.vo.UserVo;
 
 @Controller
@@ -80,12 +81,12 @@ public class BlogController {
 
 	@Auth
 	@GetMapping("/admin/category")
-	public String adminCategory(@PathVariable("id") String id, @AuthUser UserVo authUser, Model model) {
+	public String adminCategory(@PathVariable("id") String id, @AuthUser UserVo authUser, Model model, BlogVo blogVo) {
 	    if (!authUser.getId().equals(id)) {
 	        return "redirect:/" + id;// to-do: error 처리 
 	    }
 	    
-	    BlogVo blogVo = blogService.checkBlogExist(id);
+	    blogVo = blogService.checkBlogExist(id);
 	    List<CategoryVo> cListWithPostCount = blogService.getCategoryListWithPostCount(id);
 	    
 	    model.addAttribute("authUser", authUser);
@@ -120,8 +121,31 @@ public class BlogController {
 	}
 	
 	@Auth
-	@RequestMapping("/admin/write")
-	public String adminWrite(@PathVariable("id") String id) {
+	@GetMapping("/admin/write")
+	public String adminWrite(@PathVariable("id") String id, @AuthUser UserVo authUser, Model model, BlogVo blogVo) {
+	    if (!authUser.getId().equals(id)) {
+	        return "redirect:/" + id;// to-do: error 처리 
+	    }
+	    
+	    blogVo = blogService.checkBlogExist(id);
+	    List<CategoryVo> cList = blogService.getAllCategory(id);
+	    
+	    model.addAttribute("authUser", authUser);
+	    model.addAttribute("blogVo", blogVo);
+	    model.addAttribute("cList", cList);
+	    
 		return "blog/admin-write";
+	}
+	
+	@Auth
+	@PostMapping("/admin/write")
+	public String adminWrite(@PathVariable("id") String id, @AuthUser UserVo authUser, Model model, BlogVo blogVo, PostVo postVo) {
+	    if (!authUser.getId().equals(id)) {
+	        return "redirect:/" + id;// to-do: error 처리 
+	    }
+	    
+	    blogService.addPost(postVo);
+	    
+		return "redirect:/" + id + "/admin/category";
 	}
 }

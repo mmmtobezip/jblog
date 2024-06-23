@@ -113,6 +113,9 @@ public class BlogService {
 	public void deleteCategory(String id, Long no) {
 		postRepository.deleteByCategoryNo(no);
 		categoryRepository.deleteByNo(id, no);
-		
+	}
+	
+	public void addPost(PostVo postVo) {
+		postRepository.insert(postVo);
 	}
 }

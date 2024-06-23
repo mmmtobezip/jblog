@@ -33,4 +33,8 @@ public class PostRepository {
 	public void deleteByCategoryNo(Long no) {
 		sqlSession.insert("post.deleteByCategoryNo", no);
 	}
+
+	public void insert(PostVo postVo) {
+		sqlSession.insert("post.insert", postVo);	
+	}
 }

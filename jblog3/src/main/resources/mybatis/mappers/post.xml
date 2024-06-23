@@ -4,17 +4,17 @@
 <mapper namespace="post">
     <select id="findByCategoryNo" resultType="postvo" parameterType="long">
         <![CDATA[
-            SELECT no, title, contents, reg_date as regDate, category_no as categoryNo
-            FROM post 
-            WHERE category_no = #{category_no}
+            select no, title, contents, reg_date as regDate, category_no as categoryNo
+            from post 
+            where category_no = #{category_no}
             order by regDate desc
         ]]>
     </select>
     <select id="findByPostNo" resultType="postvo" parameterType="long">
 	    <![CDATA[
-	        SELECT no, title, contents
-	        FROM post
-	        WHERE no = #{no}
+	        select no, title, contents
+	        from post
+	        where no = #{no}
 	    ]]>
 	</select>
 	
@@ -29,9 +29,15 @@
 	
 	<delete id= "deleteByCategoryNo" parameterType="long">
 		<![CDATA[
-		delete from post 
-		where category_no=#{no };
+			delete from post 
+			where category_no=#{no };
 		]]>
 	</delete>
+	
+	<insert id="insert" parameterType="postvo">
+		<![CDATA[
+			insert into post values (null, #{title}, #{contents}, now(), #{categoryNo})
+		]]>
+	</insert>
 
 </mapper>
