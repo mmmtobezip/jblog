@@ -1,12 +1,8 @@
 package com.poscodx.jblog.controller;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.Locale.Category;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,15 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.poscodx.jblog.exception.BlogNotFoundException;
 import com.poscodx.jblog.security.Auth;
 import com.poscodx.jblog.security.AuthUser;
 import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.FileUploadService;
-import com.poscodx.jblog.service.UserService;
 import com.poscodx.jblog.vo.BlogVo;
-import com.poscodx.jblog.vo.CategoryVo;
-import com.poscodx.jblog.vo.PostVo;
 import com.poscodx.jblog.vo.UserVo;
 
 @Controller
@@ -44,20 +36,15 @@ public class BlogController {
                        @PathVariable Optional<Long> postNo,
                        Model model, 
                        @AuthUser UserVo userVo) {
-        
-        // 블로그 메인 데이터 조회
+
         Map<String, Object> blogData = blogService.getBlogMain(id, categoryNo, postNo);
-        
-        // 모델에 블로그 데이터 추가
+  
         model.addAllAttributes(blogData);
-        
-        // 인증된 사용자 정보 추가
+
         model.addAttribute("authUser", userVo);
-        
-        // 뷰 이름 반환
+
         return "blog/main";
     }
-	
 	
 	@Auth
 	@RequestMapping(value = "/admin/basic", method = RequestMethod.GET)
@@ -80,24 +67,16 @@ public class BlogController {
 		return "redirect:/" + id;
 	}
 
-	// @Auth
+	@Auth
 	@RequestMapping("/admin/category")
 	public String adminCategory(@PathVariable("id") String id) {
 		
 		return "blog/admin-category";
 	}
 	
-	//@Auth
+	@Auth
 	@RequestMapping("/admin/write")
 	public String adminWrite(@PathVariable("id") String id) {
 		return "blog/admin-write";
 	}
-	
-	public String isIdExists(String id) {
-		if ("".equals(id) || id == null) {
-			return "redirect:/";
-		}
-		return null;
-	}
-
 }

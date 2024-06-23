@@ -28,5 +28,4 @@ public class CategoryRepository {
 	public Long findDefaultCategoryByNo(String id) {
 		return sqlSession.selectOne("category.findDefaultCategoryByNo", id);
 	}
-
 }

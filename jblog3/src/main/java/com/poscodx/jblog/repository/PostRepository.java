@@ -29,6 +29,4 @@ public class PostRepository {
 	public Long findDefaultPostByNo(Long categoryNo) {
 		return sqlSession.selectOne("post.findDefaultPostByNo", categoryNo);
 	}
-
-
 }

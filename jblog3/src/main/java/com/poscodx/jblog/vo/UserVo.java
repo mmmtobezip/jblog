@@ -6,7 +6,6 @@ public class UserVo {
 	private String password;
 	private String joinDate;
 	
-	
 	public String getId() {
 		return id;
 	}
@@ -31,6 +30,4 @@ public class UserVo {
 	public void setJoinDate(String joinDate) {
 		this.joinDate = joinDate;
 	}
-	
-
 }

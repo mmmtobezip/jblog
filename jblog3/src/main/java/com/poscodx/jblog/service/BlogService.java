@@ -96,54 +96,8 @@ public class BlogService {
 	    Long defaultPostNo = postRepository.findDefaultPostByNo(categoryNo);
 	    return defaultPostNo != null ? defaultPostNo : 0L;
 	}
-	
-	
-
-	public Map<String, Object> getBlogMain2(String id, Optional<Long> categoryNo, Optional<Long> postNo) {
-	    Map<String, Object> result = new HashMap<>();
-
-	    // 블로그 존재 여부 체크
-	    BlogVo blogVo = checkBlogExist(id);
-	    result.put("blogVo", blogVo);
-	    System.out.println("블로그 존재 여부 체크: " + blogVo);
-	    
-	    // blog id에 따른 카테고리 목록 조회 
-	    List<CategoryVo> cList = getAllCategory(blogVo.getId());
-	    result.put("cList", cList);
-	    System.out.println("blog의 id로 카테고리 목록 조회한 결과: "+ cList);
-	    
-
-	    // 유저의 전체 카테고리 가져오고, 카테고리 지정안했을 경우 defualt category로 지정 
-	    Long defaultCategoryNo = categoryNo.orElse(
-	    		categoryRepository.findDefaultCategoryByNo(id));
-	    result.put("cno", defaultCategoryNo);
-	    System.out.println("default 카테고리 지정 : " + defaultCategoryNo);
-	    
-
-	    // 기본 카테고리가 가지고 있는 전체 포스트 목록 조회
-	    List<PostVo> posts = getAllPost(defaultCategoryNo);
-	    result.put("posts", posts);
-	    System.out.println("기본 카테고리가 가지고 있는 포스트 리스트 : " + posts);
-	    
-	    //------
-	    
-	    // 현재 선택한 게시글 
-		Long pno = postNo.orElse(
-				postRepository.findDefaultPostByNo(defaultCategoryNo)
-				);
-		System.out.println("Start findDefaultPostN:" + pno);
-		
-		
-	    PostVo postVo = getPost(pno);
-	    
-	    result.put("postVo", postVo);
-	    result.put("pno", pno);
-	   
-	    return result;
-	}
     
 	public void update(BlogVo blogVo) {
 		blogRepository.update(blogVo);
 	}
-
 }

@@ -2,7 +2,6 @@ package com.poscodx.jblog.service;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.poscodx.jblog.repository.BlogRepository;
@@ -28,7 +27,7 @@ public class UserService {
 	public void join(@Valid UserVo userVo) {
 		// User
 		System.out.println("[Join USerVo]: " + userVo);
-		userRepository.insert(userVo);  //유저 가입 정보 넣고 
+		userRepository.insert(userVo);  
 		
 		// Blog 
 		BlogVo blogVo = new BlogVo();
@@ -56,5 +55,4 @@ public class UserService {
 	public UserVo getUser(String id) {
 		return userRepository.findById(id);
 	}
-
 }
