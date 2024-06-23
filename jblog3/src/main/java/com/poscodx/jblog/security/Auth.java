@@ -15,7 +15,4 @@ import java.lang.annotation.Target;
  * 
  */
 public @interface Auth {
-  // public String value() default "test";
-  public String role() default "USER";
-  public boolean test() default true;
 }

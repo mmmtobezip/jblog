@@ -5,7 +5,30 @@
 	<insert id="insert" parameterType="categoryvo">
 		<![CDATA[
 		insert into category
-	    values (null, #{name }, #{description }, current_date(), #{blogId })
+	    values (null, #{name }, #{description }, now(), #{id })
 		]]>
+		<selectKey keyProperty="no" resultType="long">
+			<![CDATA[
+			select last_insert_id() from dual
+			]]>	
+		</selectKey>
 	</insert>
+
+	<select id="findById" parameterType="string" resultType="categoryvo">
+		<![CDATA[	
+		select no, name 
+		from category 
+		where id= #{id } 
+		order by no desc
+		]]>
+	</select>
+	
+	<select id="findDefaultCategoryByNo" parameterType="string" resultType="long">
+		<![CDATA[
+			select no 
+			from category 
+			where id=#{id } 
+			order by no desc limit 1
+		]]>
+	</select>
 </mapper>

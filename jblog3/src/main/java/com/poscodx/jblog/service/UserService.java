@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.poscodx.jblog.repository.BlogRepository;
+import com.poscodx.jblog.repository.CategoryRepository;
 import com.poscodx.jblog.repository.UserRepository;
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
@@ -16,11 +17,12 @@ public class UserService {
 	
 	private final UserRepository userRepository;
 	private final BlogRepository blogRepository;
-	
-	@Autowired
-	public UserService(UserRepository userRepository, BlogRepository blogRepository) {
+	private final CategoryRepository categoryRepository;
+
+	public UserService(UserRepository userRepository, BlogRepository blogRepository, CategoryRepository categoryRepository) {
 		this.userRepository = userRepository;
 		this.blogRepository = blogRepository;
+		this.categoryRepository = categoryRepository;
 	}
 
 	public void join(@Valid UserVo userVo) {
@@ -30,9 +32,9 @@ public class UserService {
 		
 		// Blog 
 		BlogVo blogVo = new BlogVo();
-		blogVo.setBlogId(userVo.getId());
+		blogVo.setId(userVo.getId());
 		blogVo.setTitle(userVo.getId()+" 의 블로그");
-		blogVo.setLogo("/assets/images/logo.png");
+		blogVo.setLogo("/assets/images/spring-logo.jpg");
 		
 		System.out.println("[Blog Info]: " + blogVo);
 		
@@ -40,14 +42,11 @@ public class UserService {
 		
 		// Category
 		CategoryVo categoryVo = new CategoryVo();
-		categoryVo.setNo(1L);
+		categoryVo.setId(userVo.getId());
 		categoryVo.setName("미분류");
 		categoryVo.setDescription("카테고리 미정");
-		categoryVo.setBlogId(userVo.getId());
-		
 		System.out.println("[Category Setup] : " + categoryVo);
-		
-		blogRepository.insertCategory(categoryVo);
+		categoryRepository.insertCategory(categoryVo);
 	}
 	
 	public UserVo getUser(String id, String password) {

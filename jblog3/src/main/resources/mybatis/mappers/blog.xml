@@ -4,7 +4,34 @@
 <mapper namespace="blog">
 	<insert id="insert" parameterType="blogvo">
 		<![CDATA[
-		insert into blog values(#{blogId }, #{title }, #{logo })
+		insert into blog values(#{id }, #{title }, #{logo })
 		]]>
 	</insert>
+	
+	<select id="findById" parameterType="string" resultType="blogvo">
+		<![CDATA[
+			select *
+			  from blog
+			 where id = #{id}
+		]]>
+	</select>
+	
+	<update id="update" parameterType="blogvo">
+		<choose>
+			<when test='logo == null'>
+				<![CDATA[
+				update blog
+				set title = #{title } 
+				where id= #{id }
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+				update blog
+				set title = #{title }, logo = #{logo }
+				where id = #{id }
+				]]>
+			</otherwise>
+		</choose>
+	</update>
 </mapper>

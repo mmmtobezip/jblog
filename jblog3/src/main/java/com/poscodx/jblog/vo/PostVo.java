@@ -1,18 +1,26 @@
 package com.poscodx.jblog.vo;
 
 public class PostVo {
-	private int id;
+	private Long no;
 	private String title;
 	private String contents;
 	private int categoryNo;
-	private String createDate;
+	private String regDate;
+	private int postCount;
 	
-	public int getId() {
-		return id;
+	public Long getNo() {
+		return no;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setNo(Long no) {
+		this.no = no;
 	}
+	public int getPostCount() {
+		return postCount;
+	}
+	public void setPostCount(int postCount) {
+		this.postCount = postCount;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -25,11 +33,12 @@ public class PostVo {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public String getCreateDate() {
-		return createDate;
+	
+	public String getRegDate() {
+		return regDate;
 	}
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
 	public int getCategoryNo() {
 		return categoryNo;
@@ -37,4 +46,9 @@ public class PostVo {
 	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
 	}	
+	@Override
+	public String toString() {
+		return "PostVo [no=" + no + ", title=" + title + ", contents=" + contents + ", categoryNo=" + categoryNo
+				+ ", regDate=" + regDate + "]";
+	}
 }

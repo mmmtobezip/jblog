@@ -3,20 +3,20 @@ package com.poscodx.jblog.repository;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Repository;
 
-import com.poscodx.jblog.service.UserService;
 import com.poscodx.jblog.vo.UserVo;
 
 @Repository
 public class UserRepository {
 	
-	@Autowired
-	private SqlSession sqlSession;
+	private final SqlSession sqlSession;
+	
+	public UserRepository(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
 
 	public int insert(UserVo userVo) {
 		return sqlSession.insert("user.insert", userVo);	

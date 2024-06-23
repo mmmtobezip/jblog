@@ -4,15 +4,15 @@
 <mapper namespace="user">
 	<insert id="insert" parameterType="uservo">
 		<![CDATA[
-		insert into user values(#{id }, #{name }, password(#{password }), current_date())
+		insert into user values(#{id }, #{name }, password(#{password }), now())
 		]]>
 	</insert>
 	
-	<select id="findById" parameterType="String" resultType="int">
+	<select id="findById" parameterType="string" resultType="uservo">
 		<![CDATA[
-		select id, name 
+		select id, name
 		from user 
-		where id=#{blogId }
+		where id=#{id }
 		]]>
 	</select>
 	

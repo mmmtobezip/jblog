@@ -1,18 +1,11 @@
 package com.poscodx.jblog.vo;
 
 public class CategoryVo {
-	private Long no;
+	private	Long no;
 	private String name;
 	private String description;
 	private String regDate;
-	private String blogId;
-	
-	public String getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
-	}
+	private String id;
 	
 	public Long getNo() {
 		return no;
@@ -32,11 +25,22 @@ public class CategoryVo {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getBlogId() {
-		return blogId;
+	public String getRegDate() {
+		return regDate;
 	}
-	public void setBlogId(String blogId) {
-		this.blogId = blogId;
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
-
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	@Override
+	public String toString() {
+		return "CategoryVo [no=" + no + ", name=" + name + ", description=" + description + ", regDate=" + regDate
+				+ ", id=" + id + "]";
+	}
 }
