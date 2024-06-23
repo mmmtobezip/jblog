@@ -100,4 +100,19 @@ public class BlogService {
 	public void update(BlogVo blogVo) {
 		blogRepository.update(blogVo);
 	}
+
+	public List<CategoryVo> getCategoryListWithPostCount(String id) {
+		return categoryRepository.findCategoryListWithPostCount(id);
+	}
+	
+	public void addCategory(CategoryVo categoryVo) {
+		categoryRepository.insert(categoryVo);
+	}
+
+	@Transactional
+	public void deleteCategory(String id, Long no) {
+		postRepository.deleteByCategoryNo(no);
+		categoryRepository.deleteByNo(id, no);
+		
+	}
 }

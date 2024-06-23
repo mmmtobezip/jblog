@@ -26,5 +26,12 @@
 			order by reg_date desc limit 1
 		]]>
 	</select>
+	
+	<delete id= "deleteByCategoryNo" parameterType="long">
+		<![CDATA[
+		delete from post 
+		where category_no=#{no };
+		]]>
+	</delete>
 
 </mapper>

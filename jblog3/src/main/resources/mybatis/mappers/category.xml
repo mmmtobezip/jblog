@@ -7,11 +7,6 @@
 		insert into category
 	    values (null, #{name }, #{description }, now(), #{id })
 		]]>
-		<selectKey keyProperty="no" resultType="long">
-			<![CDATA[
-			select last_insert_id() from dual
-			]]>	
-		</selectKey>
 	</insert>
 
 	<select id="findById" parameterType="string" resultType="categoryvo">
@@ -31,4 +26,22 @@
 			order by no desc limit 1
 		]]>
 	</select>
+	
+	<select id="findCategoryListWithPostCount" parameterType="string" resultType="categoryvo">
+		<![CDATA[
+		select c.no, c.name, c.description, count(p.no) as postCount
+		from category c
+		left join post p on c.no = p.category_no
+		where c.id = #{id}
+		group by c.no
+		order by c.no desc
+		]]>
+	</select>
+	
+	<delete id= "deleteByNo" parameterType="map">
+		<![CDATA[
+		delete from category 
+		where no=#{no } and id=#{id }
+		]]>
+	</delete>
 </mapper>

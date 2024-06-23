@@ -45,7 +45,7 @@ public class UserService {
 		categoryVo.setName("미분류");
 		categoryVo.setDescription("카테고리 미정");
 		System.out.println("[Category Setup] : " + categoryVo);
-		categoryRepository.insertCategory(categoryVo);
+		categoryRepository.insert(categoryVo);
 	}
 	
 	public UserVo getUser(String id, String password) {

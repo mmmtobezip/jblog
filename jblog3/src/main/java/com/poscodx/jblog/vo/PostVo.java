@@ -6,19 +6,12 @@ public class PostVo {
 	private String contents;
 	private int categoryNo;
 	private String regDate;
-	private int postCount;
 	
 	public Long getNo() {
 		return no;
 	}
 	public void setNo(Long no) {
 		this.no = no;
-	}
-	public int getPostCount() {
-		return postCount;
-	}
-	public void setPostCount(int postCount) {
-		this.postCount = postCount;
 	}
 
 	public String getTitle() {

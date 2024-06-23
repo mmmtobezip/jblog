@@ -29,4 +29,8 @@ public class PostRepository {
 	public Long findDefaultPostByNo(Long categoryNo) {
 		return sqlSession.selectOne("post.findDefaultPostByNo", categoryNo);
 	}
+
+	public void deleteByCategoryNo(Long no) {
+		sqlSession.insert("post.deleteByCategoryNo", no);
+	}
 }
